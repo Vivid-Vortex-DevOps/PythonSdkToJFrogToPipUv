@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hello-sdk"
+version = "0.1.0"
+description = "Hello World Python SDK — JFrog PyPI POC"
+requires-python = ">=3.8"
+
+[project.scripts]
+hello-sdk = "hello_sdk.hello:main"
+
+[tool.setuptools.packages.find]
+include = ["hello_sdk*"]

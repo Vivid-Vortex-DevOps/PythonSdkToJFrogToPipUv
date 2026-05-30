@@ -1,0 +1,22 @@
+services:
+  artifactory:
+    image: releases-docker.jfrog.io/jfrog/artifactory-oss:latest
+    container_name: artifactory
+    ports:
+      - "8081:8081"   # Artifactory service port (used by CLI / twine)
+      - "8082:8082"   # Web UI / router port
+    volumes:
+      - artifactory-data:/var/opt/jfrog/artifactory
+    environment:
+      - JF_ROUTER_ENTRYPOINTS_EXTERNALPORT=8082
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8082/artifactory/api/system/ping || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 15
+      start_period: 90s
+
+volumes:
+  artifactory-data:
+    driver: local
