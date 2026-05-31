@@ -144,10 +144,13 @@ Once the **"Build and Publish to JFrog PyPI"** workflow shows a green checkmark,
    ```
    pypi-local/
    └── hello-sdk/
-       ├── hello_sdk-0.1.1-py3-none-any.whl
-       └── hello_sdk-0.1.1.tar.gz
+       └── 0.1.0/
+           ├── hello_sdk-0.1.0-py3-none-any.whl
+           └── hello_sdk-0.1.0.tar.gz
    ```
-5. Click any file to inspect its metadata — checksum, size, download URL, deploy timestamp
+5. Click any file to inspect its metadata — name, repository path, file URL, deployed by, size, created timestamp
+
+![JFrog pypi-local artifact view](docs/jfrog-pypi-local-artifact.png)
 
 ### 4b. Quick browser check (no UI login needed)
 
