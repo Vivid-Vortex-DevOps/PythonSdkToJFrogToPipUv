@@ -125,33 +125,64 @@ git push origin v0.1.0
 
 If `publish` fails, click the job → expand the **"Publish to JFrog"** step to read the twine error output.
 
-### 3e. Verify the package landed in JFrog
+### 3e. Verify the artifact and install
+
+See **Part 4** below for the full verification checklist — UI check, browser ping, pip/uv install, and CLI run.
+
+---
+
+## Part 4 — Verify the artifact after GitHub Actions succeeds
+
+Once the **"Build and Publish to JFrog PyPI"** workflow shows a green checkmark, confirm the package actually landed.
+
+### 4a. Check in JFrog Cloud UI
 
 1. Go to `https://trial7o1gnn.jfrog.io`
 2. Left sidebar → **Artifactory** → **Artifacts**
-3. Click on `pypi-local` — you should see `hello_sdk-0.1.0-py3-none-any.whl` and `hello_sdk-0.1.0.tar.gz`
+3. In the repository tree, expand **`pypi-local`**
+4. You should see:
+   ```
+   pypi-local/
+   └── hello-sdk/
+       ├── hello_sdk-0.1.1-py3-none-any.whl
+       └── hello_sdk-0.1.1.tar.gz
+   ```
+5. Click any file to inspect its metadata — checksum, size, download URL, deploy timestamp
 
-### 3f. Install and test the package
+### 4b. Quick browser check (no UI login needed)
+
+Hit the simple index URL directly:
+
+```
+https://trial7o1gnn.jfrog.io/artifactory/api/pypi/pypi-local/simple/hello-sdk/
+```
+
+If the package is there it returns an HTML page listing the downloadable files.
+A 404 or empty page means the upload did not complete.
+
+### 4c. Verify it is installable
 
 ```powershell
-# via pip
 pip install hello-sdk `
   --index-url https://trial7o1gnn.jfrog.io/artifactory/api/pypi/pypi-local/simple/ `
   --extra-index-url https://pypi.org/simple/
+```
 
+```powershell
 # via uv
 uv add hello-sdk --index-url https://trial7o1gnn.jfrog.io/artifactory/api/pypi/pypi-local/simple/
 ```
 
-### 3g. Run the package
+### 4d. Run the package
 
 ```python
 from hello_sdk import greet
-print(greet())           # Hello, World! — from hello-sdk v0.1.0
-print(greet("JFrog"))    # Hello, JFrog! — from hello-sdk v0.1.0
+
+print(greet())          # Hello, World! — from hello-sdk v0.1.0
+print(greet("JFrog"))   # Hello, JFrog! — from hello-sdk v0.1.0
 ```
 
-Or via the CLI entry point:
+Or via the CLI entry point installed by the wheel:
 
 ```powershell
 hello-sdk
@@ -160,7 +191,7 @@ hello-sdk
 
 ---
 
-## Part 4 — Local workflow (Docker Desktop)
+## Part 5 — Local workflow (Docker Desktop)
 
 For local development and testing without GitHub Actions, use the bundled Docker Compose setup.
 
