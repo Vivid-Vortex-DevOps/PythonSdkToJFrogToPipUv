@@ -176,10 +176,11 @@ uv add hello-sdk --index-url https://trial7o1gnn.jfrog.io/artifactory/api/pypi/p
 ### 4d. Run the package
 
 ```python
-from hello_sdk import greet
-
-print(greet())          # Hello, World! — from hello-sdk v0.1.0
-print(greet("JFrog"))   # Hello, JFrog! — from hello-sdk v0.1.0
+>>> from hello_sdk import greet
+>>> print(greet())
+Hello, World! — from hello-sdk v0.1.0
+>>> print(greet("JFrog"))
+Hello, JFrog! — from hello-sdk v0.1.0
 ```
 
 Or via the CLI entry point installed by the wheel:
