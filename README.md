@@ -186,6 +186,8 @@ Hello, World! — from hello-sdk v0.1.0
 Hello, JFrog! — from hello-sdk v0.1.0
 ```
 
+![hello-sdk running in Python 3.12 console](docs/hello-sdk-python-console-run.png)
+
 Or via the CLI entry point installed by the wheel:
 
 ```powershell
