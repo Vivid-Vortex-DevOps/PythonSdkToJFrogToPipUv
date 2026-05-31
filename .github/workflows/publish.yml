@@ -66,5 +66,4 @@ jobs:
         run: |
           twine upload \
             --repository-url "${JFROG_PYPI_URL}" \
-            --skip-existing \
             dist/*
